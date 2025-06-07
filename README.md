@@ -1,171 +1,121 @@
-# 🏦 GoBank
+# GoBank: A Simple Banking Backend Project 🚀
 
-> *"The only way to make sense out of change is to plunge into it, move with it, and join the dance."* - Alan Watts
+![GoBank](https://img.shields.io/badge/GoBank-Backend%20Development-blue)
 
-Welcome to **GoBank** - where your money is safer than a squirrel's nuts in winter! 🐿️ This is my personal playground for mastering Go backend development, because let's face it, someone's gotta keep those zeros and ones in line.
+Welcome to the GoBank repository! This project serves as a practical introduction to backend development using Go. Here, you will find a simple banking application that helps you get hands-on experience with Go and its ecosystem. 
 
-[![Go Version](https://img.shields.io/badge/Go-1.24.2-00ADD8?style=for-the-badge&logo=go)](https://golang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Fiber](https://img.shields.io/badge/Fiber-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://gofiber.io/)
-[![Test Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen?style=for-the-badge)](https://github.com/fr13nd230/gobank)
+## Table of Contents
 
-## 🎯 What's This All About?
+- [Project Overview](#project-overview)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Releases](#releases)
 
-GoBank is my humble attempt at building a banking system in Go - think of it as a digital piggy bank, but with more code and fewer coins rattling around. The main goal? To get cozy with the **Fiber framework** and prove that Go can handle financial shenanigans better than my actual bank handles my overdraft fees! 💸
+## Project Overview
 
-*"Code is like humor. When you have to explain it, it's bad."* - Cory House
+GoBank is a straightforward project aimed at helping developers familiarize themselves with backend development in Go. It covers essential concepts and best practices, providing a solid foundation for further exploration in Go's ecosystem. Whether you are new to Go or looking to sharpen your skills, this project is for you.
 
-## 🛠️ Tech Stack
+## Technologies Used
 
-- **Go 1.24.2** - Because life's too short for slow languages
-- **Fiber Framework** - Fast, Express-inspired web framework (coming soon to a codebase near you!)
-- **PostgreSQL** - Where your data lives rent-free
-- **Docker** - Containerization magic ✨
-- **SQLC** - Type-safe SQL generation
-- **golang-migrate** - Database migration wizardry
+- **Go**: The programming language for building the backend.
+- **PostgreSQL**: The database used for storing user and transaction data.
+- **Redis**: A caching layer to improve performance.
+- **Fiber**: A web framework for building the API.
+- **GraphQL**: For flexible data querying.
+- **Migration Tools**: For managing database changes.
 
-## 📦 Dependencies
+## Features
 
-```go
-// The usual suspects
-github.com/google/uuid v1.6.0          // For unique IDs (like snowflakes, but digital)
-github.com/jackc/pgx/v5 v5.7.5         // PostgreSQL driver that actually works
-github.com/joho/godotenv v1.5.1        // Because hardcoding secrets is for amateurs
-github.com/stretchr/testify v1.10.0    // Testing made bearable
-```
+- User registration and authentication
+- Account management
+- Transaction history
+- Caching with Redis
+- GraphQL API for data queries
+- PostgreSQL database for persistent storage
+- Migration scripts for database management
 
-**Note:** Fiber framework will join the party once I stop procrastinating and actually install it! 🎉
+## Getting Started
 
-## 🚀 Getting Started
+To get started with GoBank, follow these steps:
 
-### Prerequisites
-
-Make sure you have these installed, or this journey ends before it begins:
-
-- **Go 1.24.2+** - [Download here](https://golang.org/dl/)
-- **Docker & Docker Compose** - [Get Docker](https://www.docker.com/get-started)
-- **golang-migrate** - Install with: `go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest`
-
-### Installation
-
-1. **Clone this masterpiece:**
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/fr13nd230/gobank.git
+   git clone https://github.com/Tebogo01-hash/gobank.git
    cd gobank
    ```
 
-2. **Set up your environment:**
+2. **Install dependencies**:
+   Ensure you have Go installed. You can use the following command to install the required packages:
    ```bash
-   cp .env.example .env
-   # Edit .env with your database credentials (no, 'password123' is not secure)
+   go mod tidy
    ```
 
-3. **Fire up the containers:**
+3. **Set up the database**:
+   Make sure you have PostgreSQL installed. Create a database for GoBank and update the connection string in the `.env` file.
+
+4. **Run migrations**:
+   Use the migration tool to set up the database schema:
    ```bash
-   make cmp-up
+   go run migrations/migrate.go
    ```
 
-4. **Run migrations:**
+5. **Start the server**:
+   Launch the application with:
    ```bash
-   make migrate-up
+   go run main.go
    ```
 
-5. **Start the server:**
-   ```bash
-   make run
-   ```
+## Usage
 
-*"It's not a bug, it's a feature!"* - Every developer ever
+Once the server is running, you can interact with the API using tools like Postman or curl. Here are some example requests:
 
-## 🎮 Available Commands
+- **Register a new user**:
+  ```http
+  POST /api/register
+  Content-Type: application/json
 
-Our Makefile is like a Swiss Army knife, but for code:
+  {
+      "username": "exampleUser",
+      "password": "examplePassword"
+  }
+  ```
 
-| Command | Description | Fun Factor |
-|---------|-------------|------------|
-| `make build` | Build the application | 🔨 Hammer time! |
-| `make test` | Run tests with coverage | 🧪 Science! |
-| `make run` | Start the server | 🚀 Blast off! |
-| `make cmp-up` | Start Docker containers | 🐳 Wake the whale! |
-| `make cmp-down` | Stop Docker containers | 😴 Nap time! |
-| `make createdb` | Create database | 🗄️ Birth of data |
-| `make dropdb` | Drop database | 💥 Digital demolition |
-| `make connectdb` | Connect to database | 🔌 Phone home |
-| `make migrate-up` | Run migrations up | ⬆️ Leveling up |
-| `make migrate-down` | Run migrations down | ⬇️ Going backward |
-| `make fixdirty` | Fix dirty migrations | 🧹 Spring cleaning |
-| `make gensqlc` | Generate SQLC code | 🎭 Code magic |
+- **Get transaction history**:
+  ```http
+  GET /api/transactions
+  Authorization: Bearer <token>
+  ```
 
-## 🤝 Contributing
+For a complete list of API endpoints, refer to the documentation within the codebase.
 
-Contributing to GoBank is easier than explaining why you need another banking app:
+## Contributing
 
-### Branch Naming Convention
-- `feature/awesome-new-thing` - For new features that'll blow minds
-- `fix/that-annoying-bug` - For squashing bugs like a pro
-- `config/environment-setup` - For configuration changes
-- `test/unit-coverage` - For test improvements
+Contributions are welcome! If you want to help improve GoBank, feel free to fork the repository and submit a pull request. Here are some ways you can contribute:
 
-### Commit Message Format
-Follow this pattern or face the wrath of inconsistent git history:
+- Report bugs
+- Suggest features
+- Improve documentation
+- Write tests
 
-```
-GB | purpose(scope): Your brilliant message here
+## License
 
-Examples:
-GB | feat(auth): Add user authentication with JWT tokens
-GB | fix(database): Resolve connection pool leak issue  
-GB | test(unit): Creating unit tests for account service
-GB | config(docker): Update PostgreSQL version in compose file
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-### The Sacred Rules
+## Contact
 
-1. **Always open a Pull Request** - No direct pushes to main (we're civilized here)
-2. **Unit Tests are MANDATORY** - If it's not tested, it doesn't exist
-3. **Minimum 90% test coverage** - Because 89% is for quitters
-4. **Code reviews are your friend** - Two pairs of eyes are better than one
+For any questions or suggestions, feel free to reach out:
 
-*"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."* - Martin Fowler
+- **GitHub**: [Tebogo01-hash](https://github.com/Tebogo01-hash)
 
-## 🧪 Testing
+## Releases
 
-We take testing seriously here (unlike my diet):
+To download the latest version of GoBank, visit the [Releases](https://github.com/Tebogo01-hash/gobank/releases) section. Here, you can find compiled binaries and other resources.
 
-```bash
-make test
-```
+## Conclusion
 
-This will run all tests with coverage reporting. If you're not hitting 90% coverage, you're not trying hard enough! 📈
-
-## 🐳 Docker Support
-
-Because "it works on my machine" is not a valid deployment strategy:
-
-- **Development**: `make cmp-up`
-- **Cleanup**: `make cmp-down`
-
-## 🗄️ Database
-
-PostgreSQL is our database of choice because:
-- It's reliable (unlike my sleep schedule)
-- It handles complex queries (unlike my brain on Monday mornings)
-- It's open source (like my admiration for good code)
-
-## 📄 License
-
-This project is licensed under the MIT License - because sharing is caring, and lawyers are expensive.
-
-## 🎯 Final Words
-
-*"The best time to plant a tree was 20 years ago. The second best time is now."* - Chinese Proverb
-
-The same goes for learning Go - start now, thank yourself later!
-
----
-
-**Built with ❤️ and probably too much coffee by [fr13nd230](https://github.com/fr13nd230)**
-
-*Remember: In code we trust, but we test everything else!* 🚀
+Thank you for checking out GoBank! This project is an excellent way to get familiar with Go and backend development practices. Feel free to explore, learn, and contribute. Happy coding!
